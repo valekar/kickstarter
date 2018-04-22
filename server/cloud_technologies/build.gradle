@@ -1,0 +1,43 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.13.BUILD-SNAPSHOT'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.cloud'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile group: 'org.scala-lang', name: 'scala-library', version: '2.11.7'
+	compile group: 'org.apache.spark', name : 'spark-core_2.11', version : '2.1.0'
+	compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.1.0'
+	compile group: 'org.codehaus.janino', name:'commons-compiler',version:'2.7.8'
+
+	configurations.all {
+		exclude group: 'org.slf4j',module:'slf4j-log4j12'
+		exclude group: 'log4j', module:'log4j'
+	}
+}
